@@ -4,6 +4,9 @@ const event = new eventBrite();
 export class UI {
 	constructor() {
 		this.select = document.querySelector('#category');
+		this.submitBtn = document.querySelector('#submitBtn');
+		this.eventName = document.querySelector('#event-name');
+		this.searchEvents = document.querySelector('#search-events');
 		this.init();
 	}
 	init() {
@@ -21,6 +24,21 @@ export class UI {
 				})
 			})
 			.catch( err => console.log(err))
+	}
+	showErrorMessage(message, className) {
+		const div = document.createElement('div');
+		div.className = className;
+		div.appendChild(document.createTextNode(message));
+		this.searchEvents.appendChild(div);
+		this.deleteErrorMessage();
+	}
+	deleteErrorMessage() {
+		setTimeout( () => {
+			const alert = document.querySelector('.alert');
+			if(alert) {
+				alert.remove();
+			}
+		}, 3000);
 	}
 }
 
