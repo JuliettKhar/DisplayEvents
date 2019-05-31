@@ -3,13 +3,14 @@ const event = new eventBrite();
 
 export class UI {
 	constructor() {
+		this.init();
+	}
+	init() {
 		this.select = document.querySelector('#category');
 		this.submitBtn = document.querySelector('#submitBtn');
 		this.eventName = document.querySelector('#event-name');
 		this.searchEvents = document.querySelector('#search-events');
-		this.init();
-	}
-	init() {
+		this.result = document.querySelector('#result');
 		this.printCategories();
 	}
 	printCategories() {
@@ -39,6 +40,34 @@ export class UI {
 				alert.remove();
 			}
 		}, 3000);
+	}
+	displayEvents(events) {
+		let htmlTemplate = '';
+		console.log(events)
+		events.forEach( eventInfo => {
+			htmlTemplate += `
+				 <div class="col-md-4 mt-4">
+                         <div class="card">
+                              <div class="card-body">
+                                   <img class="img-fluid mb-2" src="${eventInfo.logo !== null ? eventInfo.logo.url : ''}"> 
+                              </div>
+                              <div class="card-body">
+                                   <div class="card-text">
+                                        <h2 class="text-center card-title">${eventInfo.name.text}</h2>
+                                        <p class="lead text-info">Event Information:</p>
+                                        <p>${eventInfo.description.text !== null ? eventInfo.description.text : ''}...</p>
+                                        <span class="badge badge-primary">Capacity: ${eventInfo.capacity !== null ? eventInfo.capacity : ''}</span>
+                                        <span class="badge badge-secondary">Date & Time: ${eventInfo.start.local}</span>
+
+                                        <a href="${eventInfo.url}" target="_blank" class="btn btn-primary btn-block mt-4">Get Tickets</a>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+			`
+		});
+		this.result.innerHTML = htmlTemplate;
+
 	}
 }
 
