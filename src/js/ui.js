@@ -43,7 +43,6 @@ export class UI {
 	}
 	displayEvents(events) {
 		let htmlTemplate = '';
-		console.log(events)
 		events.forEach( eventInfo => {
 			htmlTemplate += `
 				 <div class="col-md-4 mt-4">
@@ -67,7 +66,6 @@ export class UI {
 			`
 		});
 		this.result.innerHTML = htmlTemplate;
-
 	}
 }
 
